@@ -12,7 +12,7 @@
 #define ENC_BUFF  0xE1
 
 // Mask for buffer values
-// looks like 11 in binary
+// looks like 00000011 in binary
 #define ENC_MASK  0x03
 
 class Encoder {
