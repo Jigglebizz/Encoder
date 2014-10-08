@@ -1,0 +1,6 @@
+Encoder	KEYWORD1
+
+position	KEYWORD2
+num_values	KEYWORD2
+setPins	KEYWORD2
+readPins	KEYWORD2
