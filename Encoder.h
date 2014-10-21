@@ -3,10 +3,6 @@
 
 #include "Arduino.h"
 
-// constants for comparison
-#define ENC_PIN_A 0
-#define ENC_PIN_B 1
-
 typedef struct state {
     uint8_t mask;
     struct state* next;
