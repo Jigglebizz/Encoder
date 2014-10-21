@@ -7,21 +7,22 @@
 #define ENC_PIN_A 0
 #define ENC_PIN_B 1
 
-// Circular buffer to compare values against.
-// Looks like |11|10|00|01| in binary
-#define ENC_BUFF  0xE1
-
-// Mask for buffer values
-// looks like 00000011 in binary
-#define ENC_MASK  0x03
+typedef struct state {
+    uint8_t mask;
+    struct state* next;
+    struct state* prev;
+} State;
 
 class Encoder {
   private:
-    volatile uint8_t ptr;
-
+    
     int pin_a, pin_b;
-  public:
     volatile int position;
+    static State* state_wheel;
+    static int state_wheel_set_up;
+    volatile State* current_state;
+
+  public:
     int num_values;
 
     Encoder(int, int);
@@ -29,6 +30,8 @@ class Encoder {
     void setPins(int, int);
 
     void readPins();
+    int getPosition();
+    static void setupStateWheel();
 };
 
 
