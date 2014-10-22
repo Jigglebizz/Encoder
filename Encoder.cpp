@@ -1,3 +1,26 @@
+// This implementation relies on a 'state wheel' data structure. The state wheel
+// contains 4 states - one for each possible value in grey code, linked together
+// in a cicular pattern. The following ascii drawing shows visually what the 
+// structure is:
+//
+//           --> [ 11 ] <--
+//          |              |
+//          V              V
+//       [ 01 ]          [ 10 ]
+//          ^              ^
+//          |              |
+//           --> [ 00 ] <--
+//
+// This structure is static, and therefor common among all Encoder objects you
+// may instantiate. Each encoder points to one of these states, and whenever
+// an interrupt is recieved it checks to the left and right of that state
+// To see which way it's moving. It then increments or decrements its value
+// accordingly.
+//
+// This implementation is very fast. Besides from constructing the signal
+// state, this requires no math. The remainder of the algorithm only contains
+// instructions to load from memory and compare values.
+
 #include "Arduino.h"
 #include "Encoder.h"
 
@@ -43,6 +66,7 @@ void Encoder::setPins(int a, int b) {
     interrupts();
 }
 
+// This function is called only once - to set up the static state wheel.
 void Encoder::setupStateWheel() {
     State *a, *b, *c, *d;
 
