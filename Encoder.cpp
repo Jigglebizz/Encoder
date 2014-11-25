@@ -105,3 +105,7 @@ void Encoder::readPins() {
 int Encoder::getPosition() {
     return position;
 }
+
+void Encoder::setPosition(int position) {
+    this->position = position;
+}

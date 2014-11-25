@@ -26,6 +26,7 @@ class Encoder {
     void setPins(int, int);
     void readPins();
     int getPosition();
+    void setPosition(int);
 };
 
 
