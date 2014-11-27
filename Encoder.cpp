@@ -27,8 +27,11 @@
 State* Encoder::state_wheel;
 int Encoder::state_wheel_set_up = 0;
 
-// Create a new Encoder
-// Provide pins a and b
+/**
+ * Encoder::Encoder - creates a new Encoder object
+ * @a - pin A
+ * @b - pin B
+ */
 Encoder::Encoder(int a, int b) {
     num_values = 128;
     position = 0;
@@ -40,12 +43,18 @@ Encoder::Encoder(int a, int b) {
     setPins(a, b);
 }
 
-// Delete Encoder. Nothing in here
+/**
+ * Encoder::~Encoder - deletes the encoder
+ */
 Encoder::~Encoder() {
-
+    // Nothing to put here
 }
 
-// Sets the pins and runs initialization (reads pin values)
+/**
+ * Encoder::setPins - Sets the pins and runs initialization (reads pin values)
+ * @a - pin A
+ * @b - pin B
+ */
 void Encoder::setPins(int a, int b) {
     noInterrupts();
     pin_a = a;
@@ -66,7 +75,11 @@ void Encoder::setPins(int a, int b) {
     interrupts();
 }
 
-// This function is called only once - to set up the static state wheel.
+/**
+ * Encoder::setupStateWheel - Sets up the static state wheel to which all
+ *                            encoder objects refer. This should only be
+ *                            run once per solution.
+ */
 void Encoder::setupStateWheel() {
     State *a, *b, *c, *d;
 
@@ -87,8 +100,11 @@ void Encoder::setupStateWheel() {
     state_wheel_set_up = 1;
 }
 
-// Gets the state of the pins and determines relative location.
-// This should be referenced by your interrupt service routines.
+/**
+ *  Encoder::readPins - Gets the state of the pins and determines relative
+ *                      location. This should be referenced by your interrupt
+ *                      service routines (ISR's).
+ */
 void Encoder::readPins() {
     // Get pin values
     uint8_t signal_state = digitalRead(pin_a) | (digitalRead(pin_b) << 1);
@@ -102,10 +118,17 @@ void Encoder::readPins() {
     }
 }
 
+/**
+ * Encoder::getPosition - Returns the position of the encoder
+ */
 int Encoder::getPosition() {
     return position;
 }
 
+/**
+ * Encoder::setPosition - Sets the position of the encoders
+ * @position - Position to set it to
+ */
 void Encoder::setPosition(int position) {
     this->position = position;
 }
