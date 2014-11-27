@@ -35,6 +35,7 @@ int Encoder::state_wheel_set_up = 0;
 Encoder::Encoder(int a, int b) {
     num_values = 128;
     position = 0;
+    resolution = 1;
 
     if (!state_wheel_set_up) {
         setupStateWheel();
@@ -122,7 +123,7 @@ void Encoder::readPins() {
  * Encoder::getPosition - Returns the position of the encoder
  */
 int Encoder::getPosition() {
-    return position;
+    return position * resolution;
 }
 
 /**
@@ -130,5 +131,5 @@ int Encoder::getPosition() {
  * @position - Position to set it to
  */
 void Encoder::setPosition(int position) {
-    this->position = position;
+    this->position = position / resolution;
 }

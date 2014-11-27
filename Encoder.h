@@ -19,7 +19,8 @@ class Encoder {
 
     static void setupStateWheel();
   public:
-    int num_values;                 // Number of values this encoder can express
+    int resolution;     // Resolution of this encoder
+    int num_values;     // Number of values this encoder can express
 
     Encoder(int, int);
     ~Encoder();
