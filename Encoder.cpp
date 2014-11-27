@@ -110,7 +110,7 @@ void Encoder::readPins() {
     // Get pin values
     uint8_t signal_state = digitalRead(pin_a) | (digitalRead(pin_b) << 1);
 
-    int nominal_position = position * resolution;
+    int nominal_position = position / resolution;
     if (current_state->next->mask == signal_state) {
         current_state = current_state->next;
         if (nominal_position < num_values) position++;
@@ -124,7 +124,7 @@ void Encoder::readPins() {
  * Encoder::getPosition - Returns the position of the encoder
  */
 int Encoder::getPosition() {
-    return position * resolution;
+    return position / resolution;
 }
 
 /**
@@ -132,5 +132,5 @@ int Encoder::getPosition() {
  * @position - Position to set it to
  */
 void Encoder::setPosition(int position) {
-    this->position = position / resolution;
+    this->position = position * resolution;
 }
